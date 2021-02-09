@@ -16,7 +16,7 @@ namespace Number.Db
 
         public bool isCached { get; set; }
 
-        public int Time { get; set; }
+        public TimeSpan Time { get; set; }
         public int MemoryUsage { get; set; }
         public List<int> FibSequence { get; set; }
     }

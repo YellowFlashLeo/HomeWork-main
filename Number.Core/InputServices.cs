@@ -11,11 +11,11 @@ namespace Number.Core
         static Dictionary<List<int>, List<int>> cachedFibSeq = new Dictionary<List<int>, List<int>>();
         List<int> fibSequence = new List<int>();
 
-        private AppDbContext _context;
-        public InputServices(AppDbContext context)
-        {
-            _context = context;
-        }
+        //private AppDbContext _context;
+        //public InputServices(AppDbContext context)
+        //{
+        //    _context = context;
+        //}
 
         public List<int> GetFobanacci(Input input)
         {
@@ -28,18 +28,18 @@ namespace Number.Core
             }
             else 
             {
+                if (input.Time.TotalMilliseconds != 0)
+                {
+                    var stopwatch = new Stopwatch();
+                    stopwatch.Start();
+                    int firstNumber = FibNumber(firstIndex);
+                    stopwatch.Stop();
+                    var elapsed_time = stopwatch.Elapsed.TotalMilliseconds;
 
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
-                int firstNumber = FibNumber(firstIndex);
-                //System.Threading.Thread.Sleep(2);
-                stopwatch.Stop();
-                var elapsed_time = stopwatch.ElapsedMilliseconds;
-
-                if (elapsed_time > input.Time)
-                    return fibSequence;
-
-
+                    if (elapsed_time > input.Time.TotalMilliseconds)
+                        return fibSequence;
+                }
+                
                 int lastNumber = FibNumber(lastIndex);
 
                 Fibonacci_Recursive(lastIndex + 1);

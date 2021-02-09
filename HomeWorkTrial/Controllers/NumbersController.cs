@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Number.Core;
 using Number.Db;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
@@ -23,9 +24,9 @@ namespace HomeWorkTrial.Controllers
         }
 
         [HttpGet]
-        [Route("{firstIndex}/{lastIndex}/{cached:bool?}/{time:int?}/{memoryUsage:int?}")]
+        [Route("{firstIndex}/{lastIndex}/{cached:bool?}/{time:double?}/{memoryUsage:int?}")]
         [Produces("application/json")]
-        public  IActionResult GetFobanacciNumbers(int firstIndex, int lastIndex, bool cached = false, int time = 0, int memoryUsage=0)
+        public  IActionResult GetFobanacciNumbers(int firstIndex, int lastIndex, bool cached = false, double time = 0, int memoryUsage=0)
         {
             
             Input input = new Input();
@@ -42,7 +43,7 @@ namespace HomeWorkTrial.Controllers
             input.isCached = cached ? cached : false;
 
             if(time != 0)
-                input.Time = time;
+                input.Time = TimeSpan.FromMilliseconds(time);
             if (memoryUsage != 0)
                 input.MemoryUsage = memoryUsage;
 
